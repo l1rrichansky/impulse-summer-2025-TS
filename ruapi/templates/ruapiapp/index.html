@@ -3,16 +3,25 @@
 <html>
 <head>
 	<title>Импульс тока</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<script type="text/javascript" src="{% static 'ruapiapp/js/script.js' %}"></script>
-</head>
+</head> 
 <body>
+	<div>
+		<a href="/">Main</a>
+		<a href="/random">Random</a>
+	</div>
 	<form method="POST">
 		{% csrf_token %}
 		<input type="number" name="pa">
 		<input type="submit" name="pas">
 	</form>
-	{{ log }}
+	{% if messages %}
+	    <ul>
+	        {% for message in messages %}
+	            <li>{{ message }}</li>
+	        {% endfor %}
+	    </ul>
+	{% endif %}
 	<table>
 		<tr>
 			<td>name</td>
@@ -23,9 +32,9 @@
 			<td>address</td>
 			<td>photo_url</td>
 		</tr>
-		{% for person in persons %}
-			<tr>
-				<td>{{ person.name }}</td>
+		{% for person in page_obj %}
+	    	<tr>
+				<td><a href="/user/{{ person.id }}">{{ person.name }}</a></td>
 				<td>{{ person.surname }}</td>
 				<td>{{ person.gender }}</td>
 				<td>{{ person.number }}</td>
@@ -35,5 +44,23 @@
 			</tr>
 		{% endfor %}
 	</table>
+
+	<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
 </body>
 </html>

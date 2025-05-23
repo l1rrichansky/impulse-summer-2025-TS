@@ -7,7 +7,7 @@ def load_persons(n):
     for i in range(n):
         response = requests.get(url)
         if response.status_code == 200:
-            data = response.json()["results"][0]  # Получаем первого пользователя
+            data = response.json()["results"][0]
             person = Person(
                 name=data["name"]["first"],
                 surname=data["name"]["last"],

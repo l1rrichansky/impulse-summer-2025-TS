@@ -17,3 +17,10 @@ tesk task Python. Tools and Services
 6) Можно получить информацию о случайном человеке обратившись к нему по адресу: http://homepage/random. При обновлении этой страницы каждый раз с сервера должна возвращаться новая информация.  
 7) Покрыть функциональность тестами в разумных пределах. Тесты с внешним API должны быть замоканы.  
   
+Запуск в Docker контейнере:
+
+git clone https://github.com/l1rrichansky/impulse-summer-2025-TS.git
+cd impulse-summer-2025-TS
+sudo docker build -t ruapi .
+sudo docker run -p 8000:8000 ruapi
+

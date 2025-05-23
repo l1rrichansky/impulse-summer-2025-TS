@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ person.name }} {{ person.surname }}</title>
+</head>
+<body>
+	<div>
+		<a href="/">Main</a>
+		<a href="/random">Random</a>
+	</div>
+	<tr>
+		<td>{{ person.name }}</td>
+		<td>{{ person.surname }}</td>
+		<td>{{ person.gender }}</td>
+		<td>{{ person.number }}</td>
+		<td>{{ person.email_address }}</td>
+		<td>{{ person.address }}</td>
+		<td><img src="{{ person.photo_url }}"></td>
+	</tr>
+</body>
+</html>
