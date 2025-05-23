@@ -9,13 +9,20 @@ from django.core.paginator import Paginator
 def index(request):
 
     if request.method == "POST":
-        pa_value = request.POST.get("pa", "")
-        load_persons(int(pa_value))
+        try:
+            pa_value = int(request.POST.get("pa", ""))
+        except Exception as e:
+            messages.error(request, f"Invalid data. Try again")
+            return redirect(request.path)
+        if pa_value>5000 or pa_value<0 or pa_value%1!=0:
+            messages.error(request, f"Invalid data. Try again")
+            return redirect(request.path)
+        load_persons(pa_value)
         messages.success(request, f"{pa_value} users were added")
         return redirect(request.path)
 
     persons = Person.objects.all().order_by('-id')
-    paginator = Paginator(persons, 15)
+    paginator = Paginator(persons, 12)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     total = Person.objects.count()

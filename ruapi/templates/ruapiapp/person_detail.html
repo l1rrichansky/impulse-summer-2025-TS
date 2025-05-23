@@ -4,20 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ person.name }} {{ person.surname }}</title>
+    <link rel="stylesheet" href="{% static 'ruapiapp/css/style.css' %}">
 </head>
 <body>
-	<div>
-		<a href="/">Main</a>
-		<a href="/random">Random</a>
+	<div id="left-panel">
+		<div id="menu">
+			<a href="/">Main</a>
+			<a href="/random">Random</a>
+		</div>
 	</div>
-	<tr>
-		<td>{{ person.name }}</td>
-		<td>{{ person.surname }}</td>
-		<td>{{ person.gender }}</td>
-		<td>{{ person.number }}</td>
-		<td>{{ person.email_address }}</td>
-		<td>{{ person.address }}</td>
-		<td><img src="{{ person.photo_url }}"></td>
-	</tr>
+	<div id="right-panel">
+		<table>
+			<tr>
+				<td colspan="2"><img src="{{ person.photo_url }}"></td>
+			</tr>
+			<tr>
+				<td class="bold">Name</td><td>{{ person.name }}</td>
+			</tr>	
+			<tr>	
+				<td class="bold">Surname</td><td>{{ person.surname }}</td>
+			</tr>
+			<tr>	
+				<td class="bold">Gender</td><td>{{ person.gender }}</td>
+			</tr>
+			<tr>	
+				<td class="bold">Phone Number</td><td>{{ person.number }}</td>
+			</tr>
+			<tr>	
+				<td class="bold">Email</td><td>{{ person.email_address }}</td>
+			</tr>
+			<tr>	
+				<td class="bold">Address</td><td>{{ person.address }}</td>
+			</tr>
+		</table>	
+	</div>
 </body>
 </html>

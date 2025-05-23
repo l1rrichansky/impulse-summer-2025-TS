@@ -3,67 +3,72 @@
 <html>
 <head>
 	<title>Импульс тока</title>
-	<script type="text/javascript" src="{% static 'ruapiapp/js/script.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'ruapiapp/css/style.css' %}">
 </head> 
 <body>
-	<div>
-		<a href="/">Main</a>
-		<a href="/random">Random</a>
+	<div id="left-panel">
+		<div id="menu">
+			<a href="/">Main</a>
+			<a href="/random">Random</a>
+		</div>
+		<form method="POST" id="main-form">
+			{% csrf_token %}
+			<p>Enter the number of users to add:</p>
+			<input type="number" name="pa" min="1" step="1" required max="5000">
+			<input type="submit" name="pas" value="Submit">
+		</form>
+		{% if messages %}
+		    <ul>
+		        {% for message in messages %}
+		            <li>{{ message }}</li>
+		        {% endfor %}
+		    </ul>
+		{% endif %}
 	</div>
-	<form method="POST">
-		{% csrf_token %}
-		<input type="number" name="pa">
-		<input type="submit" name="pas">
-	</form>
-	{% if messages %}
-	    <ul>
-	        {% for message in messages %}
-	            <li>{{ message }}</li>
-	        {% endfor %}
-	    </ul>
-	{% endif %}
-	<table>
-		<tr>
-			<td>profile</td>
-			<td>name</td>
-			<td>surname</td>
-			<td>gender</td>
-			<td>number</td>
-			<td>email_address</td>
-			<td>address</td>
-			<td>photo</td>
-		</tr>
-		{% for person in page_obj %}
-	    	<tr>
-	    		<td><a href="/user/{{ person.id }}">View</a></td>
-				<td>{{ person.name }}</td>
-				<td>{{ person.surname }}</td>
-				<td>{{ person.gender }}</td>
-				<td>{{ person.number }}</td>
-				<td>{{ person.email_address }}</td>
-				<td>{{ person.address }}</td>
-				<td><img src="{{ person.photo_url }}" width=40></td>
+	<div id="right-panel">
+		<table>
+			<tr id="table-header">
+				<td>Profile</td>
+				<td>Name</td>
+				<td>Surname</td>
+				<td>Gender</td>
+				<td>Phone Number</td>
+				<td>Email</td>
+				<td>Address</td>
+				<td>Photo</td>
 			</tr>
-		{% endfor %}
-	</table>
+			{% for person in page_obj %}
+		    	<tr>
+		    		<td><a href="/user/{{ person.id }}">View</a></td>
+					<td>{{ person.name }}</td>
+					<td>{{ person.surname }}</td>
+					<td>{{ person.gender }}</td>
+					<td>{{ person.number }}</td>
+					<td>{{ person.email_address }}</td>
+					<td>{{ person.address }}</td>
+					<td><img src="{{ person.photo_url }}" width=40></td>
+				</tr>
+			{% endfor %}
+		</table>
 
-	<div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
+		<div class="pagination">
+		    <span class="step-links">
+		        {% if page_obj.has_previous %}
+		            <a href="?page=1">&laquo; first</a>
+		            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+		        {% endif %}
 
-        <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-        </span>
+		        <span class="current">
+		            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+		        </span>
 
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
-</div>
-<p>Total users: {{ total }}</p>
+		        {% if page_obj.has_next %}
+		            <a href="?page={{ page_obj.next_page_number }}">next</a>
+		            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+		        {% endif %}
+		    </span>
+		</div>
+		<p>Total users: {{ total }}</p>
+	</div>
 </body>
 </html>

@@ -3,6 +3,9 @@ from .models import Person
 
 
 def load_persons(n):
+    if n not in range(1, 5000):
+        print("1 <= n <= 5000")
+        return 0
     url = f"https://randomuser.me/api/?results={n}"
     response = requests.get(url)
     if response.status_code == 200:
