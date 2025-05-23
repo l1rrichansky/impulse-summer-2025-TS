@@ -5,6 +5,7 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from django.core.paginator import Paginator
 
+
 def index(request):
 
     if request.method == "POST":
@@ -14,11 +15,12 @@ def index(request):
         return redirect(request.path)
 
     persons = Person.objects.all().order_by('-id')
-    paginator = Paginator(persons, 10)
+    paginator = Paginator(persons, 15)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
+    total = Person.objects.count()
 
-    return render(request, "ruapiapp/index.html", context={"persons": persons, "page_obj": page_obj})
+    return render(request, "ruapiapp/index.html", context={"persons": persons, "page_obj": page_obj, "total": total})
 
 
 def user_detail(request, person_id):

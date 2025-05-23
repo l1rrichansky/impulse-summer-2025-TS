@@ -3,11 +3,10 @@ from .models import Person
 
 
 def load_persons(n):
-    url = "https://randomuser.me/api/"
-    for i in range(n):
-        response = requests.get(url)
-        if response.status_code == 200:
-            data = response.json()["results"][0]
+    url = f"https://randomuser.me/api/?results={n}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        for data in response.json()["results"]:
             person = Person(
                 name=data["name"]["first"],
                 surname=data["name"]["last"],
@@ -18,5 +17,5 @@ def load_persons(n):
                 photo_url=data["picture"]["large"]
             )
             person.save()
-        else:
-            print(f"Ошибка: {response.status_code}")
+    else:
+        print(f"Ошибка: {response.status_code}")

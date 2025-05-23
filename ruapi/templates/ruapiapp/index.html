@@ -24,23 +24,25 @@
 	{% endif %}
 	<table>
 		<tr>
+			<td>profile</td>
 			<td>name</td>
 			<td>surname</td>
 			<td>gender</td>
 			<td>number</td>
 			<td>email_address</td>
 			<td>address</td>
-			<td>photo_url</td>
+			<td>photo</td>
 		</tr>
 		{% for person in page_obj %}
 	    	<tr>
-				<td><a href="/user/{{ person.id }}">{{ person.name }}</a></td>
+	    		<td><a href="/user/{{ person.id }}">View</a></td>
+				<td>{{ person.name }}</td>
 				<td>{{ person.surname }}</td>
 				<td>{{ person.gender }}</td>
 				<td>{{ person.number }}</td>
 				<td>{{ person.email_address }}</td>
 				<td>{{ person.address }}</td>
-				<td><img src="{{ person.photo_url }}"></td>
+				<td><img src="{{ person.photo_url }}" width=40></td>
 			</tr>
 		{% endfor %}
 	</table>
@@ -62,5 +64,6 @@
         {% endif %}
     </span>
 </div>
+<p>Total users: {{ total }}</p>
 </body>
 </html>
