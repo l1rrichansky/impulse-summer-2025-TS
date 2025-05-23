@@ -27,3 +27,4 @@ cd impulse-summer-2025-TS
 sudo docker build -t ruapi .
 sudo docker run -p 8000:8000 ruapi
 ```
+Приложение запускается на [localhost:8000](http://127.0.0.1:8000)
