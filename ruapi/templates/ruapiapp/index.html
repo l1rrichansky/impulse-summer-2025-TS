@@ -7,7 +7,33 @@
 	<script type="text/javascript" src="{% static 'ruapiapp/js/script.js' %}"></script>
 </head>
 <body>
-	<h1>Hello World</h1>
-	<p>{{ data }}</p>
+	<form method="POST">
+		{% csrf_token %}
+		<input type="number" name="pa">
+		<input type="submit" name="pas">
+	</form>
+	{{ log }}
+	<table>
+		<tr>
+			<td>name</td>
+			<td>surname</td>
+			<td>gender</td>
+			<td>number</td>
+			<td>email_address</td>
+			<td>address</td>
+			<td>photo_url</td>
+		</tr>
+		{% for person in persons %}
+			<tr>
+				<td>{{ person.name }}</td>
+				<td>{{ person.surname }}</td>
+				<td>{{ person.gender }}</td>
+				<td>{{ person.number }}</td>
+				<td>{{ person.email_address }}</td>
+				<td>{{ person.address }}</td>
+				<td><img src="{{ person.photo_url }}"></td>
+			</tr>
+		{% endfor %}
+	</table>
 </body>
 </html>
