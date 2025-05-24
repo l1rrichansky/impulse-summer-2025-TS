@@ -20,5 +20,7 @@ def load_persons(n):
                 photo_url=data["picture"]["large"]
             )
             person.save()
+        return 1
     else:
         print(f"Ошибка: {response.status_code}")
+        return 2

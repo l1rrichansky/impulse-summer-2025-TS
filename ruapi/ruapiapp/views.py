@@ -17,7 +17,10 @@ def index(request):
         if pa_value>5000 or pa_value<0 or pa_value%1!=0:
             messages.error(request, f"Invalid data. Try again")
             return redirect(request.path)
-        load_persons(pa_value)
+        res = load_persons(pa_value)
+        if res == 2:
+            messages.error(request, f"Service not responding. Try again later")
+            return redirect(request.path)
         messages.success(request, f"{pa_value} users were added")
         return redirect(request.path)
 

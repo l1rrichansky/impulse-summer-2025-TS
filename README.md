@@ -42,7 +42,7 @@ cd impulse-summer-2025-TS
 python -m venv venv
 
 # Windows:
-venv\Script\activate
+venv\Scripts\activate
 
 # Linux:
 source venv/bin/activate
